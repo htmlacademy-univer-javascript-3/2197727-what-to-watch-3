@@ -1,7 +1,7 @@
 # Личный проект «Что посмотреть»
 
 * Студент: [Ольга Загирова](https://up.htmlacademy.ru/univer-js3/3/user/2197727).
-* Наставник: `Неизвестно`.
+* Наставник: [Владимир Ульянов](https://htmlacademy.ru/profile/lionskape).
 
 ---
 
