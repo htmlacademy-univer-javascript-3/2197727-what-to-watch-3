@@ -1,5 +1,6 @@
 const HOUR_MINUTES_COUNT = 60;
 export const RATING_STAR_COUNT = 10;
+export const DEBOUNCE_TIME_FOR_PREVIEW_VIDEO = 1000;
 
 export const getRunTime = (runTime: number) => {
   const hour = Math.floor(runTime / HOUR_MINUTES_COUNT);
