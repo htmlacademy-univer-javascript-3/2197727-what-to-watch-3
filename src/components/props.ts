@@ -1,14 +1,13 @@
 import { Film } from '../film';
+import { PreviewFilm } from './preview-film';
 
 export type PromoFilmCardProps = {
   id: string;
   posterImage: string;
   name: string;
   backgroundImage: string;
-  videoLink: string;
   genre: string;
   released: number;
-  isFavorite: boolean;
 }
 
 export type SmallFilmCardProps = {
@@ -16,7 +15,9 @@ export type SmallFilmCardProps = {
   name: string;
   previewImage: string;
   previewVideoLink: string;
-  genre: string;
+  isPlayingPreviewVideo: boolean;
+  onSmallFilmCardMouseOver: () => void;
+  onSmallFilmCardMouseOut: () => void;
 }
 
 export type ReviewProps = {
@@ -29,18 +30,18 @@ export type ReviewProps = {
 
 export type AppProps = {
   promoFilmCard: PromoFilmCardProps;
-  smallFilmCards: SmallFilmCardProps[];
+  smallFilmCards: PreviewFilm[];
   films: Film[];
   reviews: ReviewProps[];
 }
 
 export type MainScreenProps = {
   promoFilmCard: PromoFilmCardProps;
-  smallFilmCards: SmallFilmCardProps[];
+  smallFilmCards: PreviewFilm[];
 }
 
 export type MyListScreenProps = {
-  smallFilmCards: SmallFilmCardProps[];
+  smallFilmCards: PreviewFilm[];
 }
 
 export type FilmDetailsProps = {
@@ -48,7 +49,7 @@ export type FilmDetailsProps = {
 }
 
 export type FilmListProps = {
-  films: SmallFilmCardProps[];
+  films: PreviewFilm[];
 }
 
 export type FilmOverviewProps = {
@@ -64,11 +65,17 @@ export type AddReviewScreenProps = {
 }
 
 export type FilmScreenProps = {
-  smallFilmCards: SmallFilmCardProps[];
+  smallFilmCards: PreviewFilm[];
   films: Film[];
   reviews: ReviewProps[];
 }
 
 export type PlayerScreenProps = {
   films: Film[];
+}
+
+export type VideoPlayerProps = {
+  isPlaying: boolean;
+  src: string;
+  poster: string;
 }

@@ -1,9 +1,8 @@
-import PromoFilmCard from '../components/promo-film-card';
 import { MainScreenProps } from '../components/props';
-import Header from '../components/header';
 import Footer from '../components/footer';
 import { Helmet } from 'react-helmet-async';
 import FilmList from '../components/film-list';
+import PromoFilmCard from '../components/promo-film-card';
 
 export default function MainScreen({promoFilmCard, smallFilmCards}: MainScreenProps) {
   return (
@@ -12,26 +11,14 @@ export default function MainScreen({promoFilmCard, smallFilmCards}: MainScreenPr
         <title>WTW</title>
       </Helmet>
 
-      <section className="film-card">
-        <div className="film-card__bg">
-          <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
-        </div>
-
-        <h1 className="visually-hidden">WTW</h1>
-
-        <Header/>
-
-        <PromoFilmCard
-          id={promoFilmCard.id}
-          posterImage={promoFilmCard.posterImage}
-          name={promoFilmCard.name}
-          genre={promoFilmCard.genre}
-          released={promoFilmCard.released}
-          backgroundImage={promoFilmCard.backgroundImage}
-          videoLink={promoFilmCard.videoLink}
-          isFavorite={promoFilmCard.isFavorite}
-        />
-      </section>
+      <PromoFilmCard
+        id={promoFilmCard.id}
+        posterImage={promoFilmCard.posterImage}
+        name={promoFilmCard.name}
+        genre={promoFilmCard.genre}
+        released={promoFilmCard.released}
+        backgroundImage={promoFilmCard.backgroundImage}
+      />
 
       <div className="page-content">
         <section className="catalog">

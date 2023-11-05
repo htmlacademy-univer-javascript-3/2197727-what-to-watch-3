@@ -10,6 +10,7 @@ import FilmOverview from '../components/film-overview';
 import FilmDetails from '../components/film-details';
 import FilmReviews from '../components/film-reviews';
 import { FilmScreenProps } from '../components/props';
+import cn from 'classnames';
 
 export default function FilmScreen({smallFilmCards, films, reviews}: FilmScreenProps) {
   const navigate = useNavigate();
@@ -92,13 +93,13 @@ export default function FilmScreen({smallFilmCards, films, reviews}: FilmScreenP
             <div className="film-card__desc">
               <nav className="film-nav film-card__nav">
                 <ul className="film-nav__list">
-                  <li className={`film-nav__item ${blockLink === FilmBlockLink.Overview ? 'film-nav__item--active' : ''}`}>
+                  <li className={cn('film-nav__item', {'film-nav__item--active': blockLink === FilmBlockLink.Overview})}>
                     <a className="film-nav__link" onClick={handlerOverviewLinkClick}>Overview</a>
                   </li>
-                  <li className={`film-nav__item ${blockLink === FilmBlockLink.Details ? 'film-nav__item--active' : ''}`}>
+                  <li className={cn('film-nav__item', {'film-nav__item--active': blockLink === FilmBlockLink.Details})}>
                     <a className="film-nav__link" onClick={handlerDetailsLinkClick}>Details</a>
                   </li>
-                  <li className={`film-nav__item ${blockLink === FilmBlockLink.Reviews ? 'film-nav__item--active' : ''}`}>
+                  <li className={cn('film-nav__item', {'film-nav__item--active': blockLink === FilmBlockLink.Reviews})}>
                     <a className="film-nav__link" onClick={handlerReviewsLinkClick}>Reviews</a>
                   </li>
                 </ul>
