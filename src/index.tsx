@@ -2,11 +2,16 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './components/app';
 import { AppProps } from './components/props';
-import { promoFilm, smallFilmCards } from './mocks';
+import { films } from './mocks/films';
+import { promoFilm } from './mocks/promo-film';
+import { reviews } from './mocks/reviews';
+import { SmallFilmCardProps } from './components/props';
 
 const appData: AppProps = {
   promoFilmCard: promoFilm,
-  smallFilmCards: smallFilmCards
+  smallFilmCards: films.slice(1, films.length) as SmallFilmCardProps[],
+  films: films,
+  reviews: reviews,
 };
 
 const root = ReactDOM.createRoot(
@@ -15,10 +20,11 @@ const root = ReactDOM.createRoot(
 
 root.render(
   <React.StrictMode>
-    <h1>Hello, World!</h1>
     <App
       promoFilmCard={appData.promoFilmCard}
       smallFilmCards={appData.smallFilmCards}
+      films={appData.films}
+      reviews={appData.reviews}
     />
   </React.StrictMode>
 );

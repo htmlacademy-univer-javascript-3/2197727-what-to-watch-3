@@ -1,5 +1,4 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { ReactNode } from 'react';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { HelmetProvider } from 'react-helmet-async';
 import MainScreen from '../pages/main-screen';
@@ -11,9 +10,8 @@ import PlayerScreen from '../pages/player-screen';
 import NotFoundScreen from '../pages/error-screen';
 import PrivateRoute from '../components/private-route';
 import { AppProps } from './props';
-import { FilmCardCount } from '../mocks';
 
-export default function App({promoFilmCard, smallFilmCards}: AppProps): ReactNode {
+export default function App({promoFilmCard, smallFilmCards, films, reviews}: AppProps) {
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -29,10 +27,8 @@ export default function App({promoFilmCard, smallFilmCards}: AppProps): ReactNod
           <Route
             path={AppRoute.MyList}
             element={
-              <PrivateRoute
-                authorizationStatus={AuthorizationStatus.NoAuth}
-              >
-                <MyListScreen smallFilmCards={smallFilmCards.slice(0, FilmCardCount.MyListScreen)}/>
+              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+                <MyListScreen smallFilmCards={smallFilmCards}/>
               </PrivateRoute>
             }
           />
@@ -40,14 +36,14 @@ export default function App({promoFilmCard, smallFilmCards}: AppProps): ReactNod
             <Route index element={<NotFoundScreen/>}/>
 
             <Route path=':id'>
-              <Route index element={<FilmScreen smallFilmCards={smallFilmCards.slice(0, FilmCardCount.FilmScreen)}/>}/>
-              <Route path='review' element={<AddReviewScreen/>}/>
+              <Route index element={<FilmScreen smallFilmCards={smallFilmCards} films={films} reviews={reviews}/>}/>
+              <Route path='review' element={<AddReviewScreen films={films}/>}/>
             </Route>
           </Route>
 
           <Route path={AppRoute.Player}>
             <Route index element={<NotFoundScreen/>}/>
-            <Route path=':id' element={<PlayerScreen/>}/>
+            <Route path=':id' element={<PlayerScreen films={films}/>}/>
           </Route>
 
           <Route

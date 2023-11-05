@@ -1,10 +1,10 @@
 import Header from '../components/header';
 import Footer from '../components/footer';
-import SmallFilmCard from '../components/small-film-card';
-import { SmallFilmCardProps, MyListScreenProps } from '../components/props';
+import { MyListScreenProps } from '../components/props';
 import { Helmet } from 'react-helmet-async';
+import FilmList from '../components/film-list';
 
-export default function MyListScreen({smallFilmCards}: MyListScreenProps): JSX.Element {
+export default function MyListScreen({smallFilmCards}: MyListScreenProps) {
   return (
     <div className="user-page">
       <Helmet>
@@ -17,13 +17,7 @@ export default function MyListScreen({smallFilmCards}: MyListScreenProps): JSX.E
         <h2 className="catalog__title visually-hidden">Catalog</h2>
 
         <div className="catalog__films-list">
-          {smallFilmCards.map((smallFilmCard: SmallFilmCardProps) => (
-            <SmallFilmCard
-              key={smallFilmCard.id}
-              imgSrc={smallFilmCard.imgSrc}
-              title={smallFilmCard.title}
-            />
-          ))}
+          <FilmList films={smallFilmCards} />
         </div>
       </section>
 
