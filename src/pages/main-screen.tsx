@@ -1,16 +1,18 @@
 import SmallFilmCard from '../components/small-film-card';
+import { SmallFilmCardProps } from '../components/props';
+import PromoFilmCard from '../components/promo-film-card';
+import { MainScreenProps } from '../components/props';
 import Header from '../components/header';
 import Footer from '../components/footer';
+import { Helmet } from 'react-helmet-async';
 
-type MainScreenProps = {
-  promoFilmTitle: string;
-  promoFilmGenre: string;
-  promoFilmYear: number;
-}
-
-function MainScreen({promoFilmTitle, promoFilmGenre, promoFilmYear}: MainScreenProps): JSX.Element {
+export default function MainScreen({promoFilmCard, smallFilmCards}: MainScreenProps): JSX.Element {
   return (
     <>
+      <Helmet>
+        <title>WTW</title>
+      </Helmet>
+
       <section className="film-card">
         <div className="film-card__bg">
           <img src="img/bg-the-grand-budapest-hotel.jpg" alt="The Grand Budapest Hotel"/>
@@ -20,42 +22,12 @@ function MainScreen({promoFilmTitle, promoFilmGenre, promoFilmYear}: MainScreenP
 
         <Header/>
 
-        <div className="film-card__wrap">
-          <div className="film-card__info">
-            <div className="film-card__poster">
-              <img src="img/the-grand-budapest-hotel-poster.jpg" alt="The Grand Budapest Hotel poster" width="218" height="327"/>
-            </div>
-
-            <div className="film-card__desc">
-              <h2 className="film-card__title">{promoFilmTitle}</h2>
-
-              <p className="film-card__meta">
-                <span className="film-card__genre">{promoFilmGenre}</span>
-                <span className="film-card__year">{promoFilmYear}</span>
-              </p>
-
-              <div className="film-card__buttons">
-                <button className="btn btn--play film-card__button" type="button">
-                  <svg viewBox="0 0 19 19" width="19" height="19">
-                    <use xlinkHref="#play-s"></use>
-                  </svg>
-
-                  <span>Play</span>
-                </button>
-
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-
-                  <span>My list</span>
-
-                  <span className="film-card__count">9</span>
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+        <PromoFilmCard
+          imgSrc={promoFilmCard.imgSrc}
+          title={promoFilmCard.title}
+          genre={promoFilmCard.genre}
+          year={promoFilmCard.year}
+        />
       </section>
 
       <div className="page-content">
@@ -96,26 +68,13 @@ function MainScreen({promoFilmTitle, promoFilmGenre, promoFilmYear}: MainScreenP
           </ul>
 
           <div className="catalog__films-list">
-            <SmallFilmCard />
-            <SmallFilmCard />
-            <SmallFilmCard />
-            <SmallFilmCard />
-            <SmallFilmCard />
-            <SmallFilmCard />
-            <SmallFilmCard />
-            <SmallFilmCard />
-            <SmallFilmCard />
-            <SmallFilmCard />
-            <SmallFilmCard />
-            <SmallFilmCard />
-            <SmallFilmCard />
-            <SmallFilmCard />
-            <SmallFilmCard />
-            <SmallFilmCard />
-            <SmallFilmCard />
-            <SmallFilmCard />
-            <SmallFilmCard />
-            <SmallFilmCard />
+            {smallFilmCards.map((smallFilmCard: SmallFilmCardProps) => (
+              <SmallFilmCard
+                key={smallFilmCard.id}
+                imgSrc={smallFilmCard.imgSrc}
+                title={smallFilmCard.title}
+              />
+            ))}
           </div>
 
           <div className="catalog__more">
@@ -128,5 +87,3 @@ function MainScreen({promoFilmTitle, promoFilmGenre, promoFilmYear}: MainScreenP
     </>
   );
 }
-
-export default MainScreen;
