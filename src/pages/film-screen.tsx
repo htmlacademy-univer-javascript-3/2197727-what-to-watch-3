@@ -4,36 +4,14 @@ import { Helmet } from 'react-helmet-async';
 import { Film } from '../film';
 import FilmList from '../components/film-list';
 import { Link, useNavigate, useParams } from 'react-router-dom';
-import { AppRoute, FilmBlockLink } from '../const';
-import { useState } from 'react';
-import FilmOverview from '../components/film-overview';
-import FilmDetails from '../components/film-details';
-import FilmReviews from '../components/film-reviews';
+import { AppRoute } from '../const';
 import { FilmScreenProps } from '../components/props';
-import cn from 'classnames';
+import Tabs from '../components/tabs';
 
 export default function FilmScreen({smallFilmCards, films, reviews}: FilmScreenProps) {
   const navigate = useNavigate();
   const { id } = useParams();
   const film = films.find((item) => item.id === id) as Film;
-
-  const [filmInfo, setFilmInfo] = useState(<FilmOverview film={film}/>);
-  const [blockLink, setBlockLink] = useState(FilmBlockLink.Overview);
-
-  const handlerOverviewLinkClick = () => {
-    setFilmInfo(<FilmOverview film={film}/>);
-    setBlockLink(FilmBlockLink.Overview);
-  };
-
-  const handlerDetailsLinkClick = () => {
-    setFilmInfo(<FilmDetails film={film}/>);
-    setBlockLink(FilmBlockLink.Details);
-  };
-
-  const handlerReviewsLinkClick = () => {
-    setFilmInfo(<FilmReviews reviews={reviews}/>);
-    setBlockLink(FilmBlockLink.Reviews);
-  };
 
   return (
     <>
@@ -65,6 +43,7 @@ export default function FilmScreen({smallFilmCards, films, reviews}: FilmScreenP
                   <svg viewBox="0 0 19 19" width="19" height="19">
                     <use xlinkHref="#play-s"></use>
                   </svg>
+
                   <span>Play</span>
                 </button>
 
@@ -90,22 +69,7 @@ export default function FilmScreen({smallFilmCards, films, reviews}: FilmScreenP
               <img src={film.posterImage} alt={film.name} width="218" height="327" />
             </div>
 
-            <div className="film-card__desc">
-              <nav className="film-nav film-card__nav">
-                <ul className="film-nav__list">
-                  <li className={cn('film-nav__item', {'film-nav__item--active': blockLink === FilmBlockLink.Overview})}>
-                    <a className="film-nav__link" onClick={handlerOverviewLinkClick}>Overview</a>
-                  </li>
-                  <li className={cn('film-nav__item', {'film-nav__item--active': blockLink === FilmBlockLink.Details})}>
-                    <a className="film-nav__link" onClick={handlerDetailsLinkClick}>Details</a>
-                  </li>
-                  <li className={cn('film-nav__item', {'film-nav__item--active': blockLink === FilmBlockLink.Reviews})}>
-                    <a className="film-nav__link" onClick={handlerReviewsLinkClick}>Reviews</a>
-                  </li>
-                </ul>
-              </nav>
-              {filmInfo}
-            </div>
+            <Tabs film={film} reviews={reviews}/>
           </div>
         </div>
       </section>
@@ -114,9 +78,7 @@ export default function FilmScreen({smallFilmCards, films, reviews}: FilmScreenP
         <section className="catalog catalog--like-this">
           <h2 className="catalog__title">More like this</h2>
 
-          <div className="catalog__films-list">
-            <FilmList films={smallFilmCards}/>
-          </div>
+          <FilmList films={smallFilmCards} genre={film.genre}/>
         </section>
 
         <Footer/>

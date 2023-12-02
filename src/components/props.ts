@@ -21,18 +21,26 @@ export type SmallFilmCardProps = {
 }
 
 export type ReviewProps = {
+  date: string;
+  user: string;
+  comment: string;
+  rating: number;
+}
+
+export type ReviewData = {
+  idFilm: string;
   id: string;
   date: string;
   user: string;
   comment: string;
   rating: number;
-  }
+}
 
 export type AppProps = {
   promoFilmCard: PromoFilmCardProps;
   smallFilmCards: PreviewFilm[];
   films: Film[];
-  reviews: ReviewProps[];
+  reviews: ReviewData[];
 }
 
 export type MainScreenProps = {
@@ -45,19 +53,29 @@ export type MyListScreenProps = {
 }
 
 export type FilmDetailsProps = {
-  film: Film;
+  director: string;
+  starring: string[];
+  runTime: number;
+  genre: string;
+  released: number;
 }
 
 export type FilmListProps = {
   films: PreviewFilm[];
+  genre: string;
 }
 
 export type FilmOverviewProps = {
-  film: Film;
+  description: string;
+  rating: number;
+  scoresCount: number;
+  director: string;
+  starring: string[];
 }
 
 export type FilmReviewsProps = {
-  reviews: ReviewProps[];
+  idFilm: string;
+  reviews: ReviewData[];
 }
 
 export type AddReviewScreenProps = {
@@ -67,7 +85,7 @@ export type AddReviewScreenProps = {
 export type FilmScreenProps = {
   smallFilmCards: PreviewFilm[];
   films: Film[];
-  reviews: ReviewProps[];
+  reviews: ReviewData[];
 }
 
 export type PlayerScreenProps = {
@@ -78,4 +96,9 @@ export type VideoPlayerProps = {
   isPlaying: boolean;
   src: string;
   poster: string;
+}
+
+export type TabsProps = {
+  film: Film;
+  reviews: ReviewData[];
 }
