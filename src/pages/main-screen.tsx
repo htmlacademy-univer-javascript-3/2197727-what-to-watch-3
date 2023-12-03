@@ -3,24 +3,20 @@ import Footer from '../components/footer';
 import { Helmet } from 'react-helmet-async';
 import FilmList from '../components/film-list';
 import PromoFilmCard from '../components/promo-film-card';
-import { getGenreList } from '../components/get-genre-list';
 import GenreList from '../components/genre-list';
-import { useAppDispatch, useAppSelector } from '../index';
+import { useAppSelector } from '../index';
 import ShowMoreFilmButton from '../components/show-more-film-button';
-import { setDefaultShownFilmCount } from '../action';
-import { useEffect } from 'react';
-import { PreviewFilm } from '../components/preview-film';
+import { SHOWN_FILM_COUNT } from '../const';
+import { getGenreList } from '../components/get-genre-list';
+import { useState } from 'react';
+import { useFilmsByGenre } from '../components/films-by-genre';
 
 export default function MainScreen({promoFilmCard}: MainScreenProps) {
-  const filmsByGenre = useAppSelector((state) => state.filmsByGenre);
+  const activeGenre = useAppSelector((state) => state.genre);
   const films = useAppSelector((state) => state.films);
-  const dispatch = useAppDispatch();
+  const [shownFilmCount, setShownFilmCount] = useState(SHOWN_FILM_COUNT);
+  const filmsByGenre = useFilmsByGenre(activeGenre);
 
-  useEffect(() => {
-    dispatch(setDefaultShownFilmCount());
-  }, [dispatch]);
-
-  const shownFilmCount = useAppSelector((state) => state.shownFilmCount);
   return (
     <>
       <Helmet>
@@ -39,9 +35,9 @@ export default function MainScreen({promoFilmCard}: MainScreenProps) {
       <div className="page-content">
         <section className="catalog">
           <h2 className="catalog__title visually-hidden">Catalog</h2>
-          <GenreList genres={getGenreList(films as PreviewFilm[])}/>
-          <FilmList films={filmsByGenre as PreviewFilm[]} filmCount={shownFilmCount}/>
-          {shownFilmCount < filmsByGenre.length && <ShowMoreFilmButton />}
+          <GenreList genres={getGenreList(films)} onGenreClick={() => setShownFilmCount(SHOWN_FILM_COUNT)}/>
+          <FilmList films={filmsByGenre} filmCount={shownFilmCount}/>
+          {shownFilmCount < filmsByGenre.length && <ShowMoreFilmButton onShowMoreFilmButtonClick={() => setShownFilmCount(shownFilmCount + SHOWN_FILM_COUNT)} />}
         </section>
 
         <Footer/>

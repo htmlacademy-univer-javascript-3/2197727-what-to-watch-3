@@ -1,9 +1,9 @@
 import cn from 'classnames';
 import { useAppDispatch, useAppSelector } from '../index';
-import { changeActiveGenre, setDefaultShownFilmCount, showFilmsByGenre } from '../action';
+import { changeActiveGenre } from '../action';
 import { GenreListProps } from './props';
 
-export default function GenreList({genres}: GenreListProps) {
+export default function GenreList({genres, onGenreClick}: GenreListProps) {
   const activeGenre = useAppSelector((state) => state.genre);
   const dispatch = useAppDispatch();
 
@@ -12,9 +12,8 @@ export default function GenreList({genres}: GenreListProps) {
       {genres.map((genre: string) => (
         <li key={genre} className={cn('catalog__genres-item', {'catalog__genres-item--active': activeGenre === genre})}>
           <a onClick={() => {
+            onGenreClick();
             dispatch(changeActiveGenre({ genre: genre }));
-            dispatch(showFilmsByGenre());
-            dispatch(setDefaultShownFilmCount());
           }} className="catalog__genres-link"
           >{genre}
           </a>
