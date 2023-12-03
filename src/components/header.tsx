@@ -1,7 +1,36 @@
 import { Link } from 'react-router-dom';
-import { ReactNode } from 'react';
+import { ReactNode } from 'react';import { AppRoute, AuthorizationStatus } from '../const';
+import { useAppSelector } from '../index';
+import SignOutButton from '../components/sing-out-button';
+
+const getUserBlock = (authorizationStatus: AuthorizationStatus) => {
+  if(authorizationStatus === AuthorizationStatus.Auth) {
+    return (
+      <ul className="user-block">
+        <li className="user-block__item">
+          <div className="user-block__avatar">
+            <Link to={AppRoute.MyList}>
+              <img src="img/avatar.jpg" alt="User avatar" width="63" height="63" />
+            </Link>
+          </div>
+        </li>
+        <li className="user-block__item">
+          <SignOutButton />
+        </li>
+      </ul>
+    );
+  }
+  return (
+    <ul className="user-block">
+      <li className="user-block__item">
+        <Link className="user-block__link" to={AppRoute.SignIn}>Sign in</Link>
+      </li>
+    </ul>
+  );
+};
 
 export default function Header(): ReactNode {
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
   return (
     <header className="page-header film-card__head">
       <div className="logo">
@@ -11,17 +40,7 @@ export default function Header(): ReactNode {
           <span className="logo__letter logo__letter--3">W</span>
         </Link>
       </div>
-
-      <ul className="user-block">
-        <li className="user-block__item">
-          <div className="user-block__avatar">
-            <img src="img/avatar.jpg" alt="User avatar" width="63" height="63"/>
-          </div>
-        </li>
-        <li className="user-block__item">
-          <a className="user-block__link">Sign out</a>
-        </li>
-      </ul>
+      {getUserBlock(authorizationStatus)}
     </header>
   );
 }

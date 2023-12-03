@@ -8,9 +8,12 @@ import { reviews } from './mocks/reviews';
 import { PreviewFilm } from './components/preview-film';
 import { Provider } from 'react-redux';
 import { store } from './store-index';
-import { fetchFilmsAction } from './components/api-action';
+import { checkAuthAction, fetchFilmsAction } from './store/api-actions';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 store.dispatch(fetchFilmsAction());
+store.dispatch(checkAuthAction());
 
 const appData: AppProps = {
   promoFilmCard: promoFilm,
@@ -26,12 +29,13 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        promoFilmCard={appData.promoFilmCard}
-        smallFilmCards={appData.smallFilmCards}
-        films={appData.films}
-        reviews={appData.reviews}
-      />
+      <ToastContainer/>
+        <App
+          promoFilmCard={appData.promoFilmCard}
+          smallFilmCards={appData.smallFilmCards}
+          films={appData.films}
+          reviews={appData.reviews}
+        />
     </Provider>
   </React.StrictMode>
 );

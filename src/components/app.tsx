@@ -1,5 +1,5 @@
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../const';
+import { Route, Routes } from 'react-router-dom';
+import { AppRoute } from '../const';
 import { HelmetProvider } from 'react-helmet-async';
 import MainScreen from '../pages/main-screen';
 import SignInScreen from '../pages/sign-in-screen';
@@ -12,9 +12,12 @@ import PrivateRoute from '../components/private-route';
 import { AppProps } from './props';
 import { useAppSelector } from '../index';
 import LoadingScreen from './loading-screen';
+import HistoryRouter from './history-routr';
+import browserHistory from './brower-history'
 
 export default function App({promoFilmCard, smallFilmCards, films, reviews}: AppProps) {
   const isFilmsDataLoading = useAppSelector((state) => state.isFilmsDataLoading);
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
   if (isFilmsDataLoading) {
     return (
@@ -23,7 +26,7 @@ export default function App({promoFilmCard, smallFilmCards, films, reviews}: App
   }
   return (
     <HelmetProvider>
-      <BrowserRouter>
+      <HistoryRouter history={browserHistory}>
         <Routes>
           <Route
             path={AppRoute.Main}
@@ -36,14 +39,13 @@ export default function App({promoFilmCard, smallFilmCards, films, reviews}: App
           <Route
             path={AppRoute.MyList}
             element={
-              <PrivateRoute authorizationStatus={AuthorizationStatus.NoAuth}>
+              <PrivateRoute authorizationStatus={authorizationStatus}>
                 <MyListScreen smallFilmCards={smallFilmCards}/>
               </PrivateRoute>
             }
           />
           <Route path={AppRoute.FilmData}>
             <Route index element={<NotFoundScreen/>}/>
-
             <Route path=':id'>
               <Route index element={<FilmScreen films={films} reviews={reviews} />}/>
               <Route path='review' element={<AddReviewScreen films={films}/>}/>
@@ -60,7 +62,7 @@ export default function App({promoFilmCard, smallFilmCards, films, reviews}: App
             element={<NotFoundScreen/>}
           />
         </Routes>
-      </BrowserRouter>
+        </HistoryRouter>
     </HelmetProvider>
   );
 }

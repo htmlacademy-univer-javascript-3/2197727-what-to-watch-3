@@ -1,6 +1,7 @@
 import { Film } from '../film';
 import { PreviewFilm } from './preview-film';
 import { AuthorizationStatus } from '../const';
+import type { BrowserHistory } from 'history';
 
 export type PromoFilmCardProps = {
   id: string;
@@ -114,4 +115,10 @@ export type PrivateRouteProps = {
 
 export type ShowMoreFilmButtonProps = {
   onShowMoreFilmButtonClick: () => void;
+}
+
+export interface HistoryRouterProps {
+  history: BrowserHistory;
+  basename?: string;
+  children?: React.ReactNode;
 }
