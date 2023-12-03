@@ -83,7 +83,6 @@ export type AddReviewScreenProps = {
 }
 
 export type FilmScreenProps = {
-  smallFilmCards: PreviewFilm[];
   films: Film[];
   reviews: ReviewData[];
 }
@@ -105,9 +104,14 @@ export type TabsProps = {
 
 export type GenreListProps = {
   genres: string[];
+  onGenreClick: () => void;
 }
 
 export type PrivateRouteProps = {
   authorizationStatus: AuthorizationStatus;
   children: JSX.Element;
+}
+
+export type ShowMoreFilmButtonProps = {
+  onShowMoreFilmButtonClick: () => void;
 }
