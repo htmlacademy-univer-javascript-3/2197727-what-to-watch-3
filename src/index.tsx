@@ -8,6 +8,9 @@ import { reviews } from './mocks/reviews';
 import { PreviewFilm } from './components/preview-film';
 import { Provider } from 'react-redux';
 import { store } from './store-index';
+import { fetchFilmsAction } from './components/api-action';
+
+store.dispatch(fetchFilmsAction());
 
 const appData: AppProps = {
   promoFilmCard: promoFilm,

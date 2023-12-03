@@ -10,8 +10,17 @@ import PlayerScreen from '../pages/player-screen';
 import NotFoundScreen from '../pages/error-screen';
 import PrivateRoute from '../components/private-route';
 import { AppProps } from './props';
+import { useAppSelector } from '../index';
+import LoadingScreen from './loading-screen';
 
 export default function App({promoFilmCard, smallFilmCards, films, reviews}: AppProps) {
+  const isFilmsDataLoading = useAppSelector((state) => state.isFilmsDataLoading);
+
+  if (isFilmsDataLoading) {
+    return (
+      <LoadingScreen />
+    );
+  }
   return (
     <HelmetProvider>
       <BrowserRouter>
