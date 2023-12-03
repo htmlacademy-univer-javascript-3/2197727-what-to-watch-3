@@ -42,7 +42,6 @@ export type AppProps = {
   promoFilmCard: PromoFilmCardProps;
   smallFilmCards: PreviewFilm[];
   films: Film[];
-  reviews: ReviewData[];
 }
 
 export type MainScreenProps = {
@@ -75,16 +74,6 @@ export type FilmOverviewProps = {
 }
 
 export type FilmReviewsProps = {
-  filmId: string;
-  reviews: ReviewData[];
-}
-
-export type AddReviewScreenProps = {
-  films: Film[];
-}
-
-export type FilmScreenProps = {
-  films: Film[];
   reviews: ReviewData[];
 }
 
@@ -121,4 +110,8 @@ export interface HistoryRouterProps {
   history: BrowserHistory;
   basename?: string;
   children?: React.ReactNode;
+}
+
+export type FormReviewProps = {
+  filmId: string;
 }

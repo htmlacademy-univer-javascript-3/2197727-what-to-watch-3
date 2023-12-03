@@ -1,4 +1,5 @@
 import { ReviewProps } from './props';
+import { getAltDate, humanizeDate } from './change-date-format';
 
 export default function Review({date, user, comment, rating}: ReviewProps) {
   return(
@@ -8,7 +9,7 @@ export default function Review({date, user, comment, rating}: ReviewProps) {
 
         <footer className="review__details">
           <cite className="review__author">{user}</cite>
-          <time className="review__date" dateTime="2016-12-24">{date}</time>
+          <time className="review__date" dateTime={getAltDate(date)}>{humanizeDate(date)}</time>
         </footer>
       </blockquote>
 

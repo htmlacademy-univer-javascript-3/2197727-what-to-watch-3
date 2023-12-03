@@ -15,7 +15,7 @@ import LoadingScreen from './loading-screen';
 import HistoryRouter from './history-routr';
 import browserHistory from './brower-history'
 
-export default function App({promoFilmCard, smallFilmCards, films, reviews}: AppProps) {
+export default function App({promoFilmCard, smallFilmCards, films}: AppProps) {
   const isFilmsDataLoading = useAppSelector((state) => state.isFilmsDataLoading);
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
 
@@ -46,17 +46,13 @@ export default function App({promoFilmCard, smallFilmCards, films, reviews}: App
           />
           <Route path={AppRoute.FilmData}>
             <Route index element={<NotFoundScreen/>}/>
-            <Route path=':id'>
-              <Route index element={<FilmScreen films={films} reviews={reviews} />}/>
-              <Route path='review' element={<AddReviewScreen films={films}/>}/>
+            <Route index element={<FilmScreen/>} />
+              <Route path='review' element={<AddReviewScreen/>} />
             </Route>
-          </Route>
-
           <Route path={AppRoute.Player}>
             <Route index element={<NotFoundScreen/>}/>
             <Route path=':id' element={<PlayerScreen films={films}/>}/>
           </Route>
-
           <Route
             path="*"
             element={<NotFoundScreen/>}

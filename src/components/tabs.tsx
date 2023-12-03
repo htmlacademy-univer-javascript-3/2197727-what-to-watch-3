@@ -29,7 +29,7 @@ const getFilmActiveTabInfo = (activeTab: string, film: Film, reviews: ReviewData
         />);
     case FilmTab.Reviews:
       return(
-        <FilmReviews filmId={film.id} reviews={reviews} />
+        <FilmReviews reviews={reviews}/>
       );
     default:
       break;
