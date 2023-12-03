@@ -1,4 +1,5 @@
-import { getFilmRating } from '../get-film-rating';
+import { getFilmRating } from './get-film-rating';
+import { FilmOverviewProps } from './props';
 
 export default function FilmOverview({description, rating, scoresCount, director, starring}: FilmOverviewProps) {
   return (
