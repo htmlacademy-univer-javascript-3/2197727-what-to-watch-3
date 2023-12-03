@@ -6,6 +6,7 @@ export const SHOWN_FILM_COUNT = 8;
 export const REQUEST_TIMEOUT = 5000;
 export const DEFAULT_GENRE = 'All genres';
 export const BACKEND_URL = 'https://13.design.pages.academy/wtw';
+export const AUTH_TOKEN_KEY_NAME = 'wtw-token';
 
 export const getRunTime = (runTime: number) => {
   const hour = Math.floor(runTime / HOUR_MINUTES_COUNT);
@@ -13,13 +14,13 @@ export const getRunTime = (runTime: number) => {
   return `${hour}h ${minute}m`;
 };
 
-export const AppRoute = {
-  Main: '/',
-  SignIn: '/login',
-  MyList: '/mylist',
-  FilmData: '/films',
-  Player: '/player',
-};
+export enum AppRoute {
+  Main = '/',
+  SignIn = '/login',
+  MyList = '/mylist',
+  FilmData = '/films',
+  Player = '/player',
+}
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',
@@ -41,4 +42,6 @@ export const FilmTabNameInterface = {
 
 export const APIRoute = {
   Films: '/films',
+  Login: '/login',
+  Logout: '/logout',
 };
