@@ -1,5 +1,6 @@
 import { Film } from '../film';
 import { PreviewFilm } from './preview-film';
+import { AuthorizationStatus } from '../const';
 
 export type PromoFilmCardProps = {
   id: string;
@@ -28,7 +29,7 @@ export type ReviewProps = {
 }
 
 export type ReviewData = {
-  idFilm: string;
+  filmId: string;
   id: string;
   date: string;
   user: string;
@@ -45,7 +46,6 @@ export type AppProps = {
 
 export type MainScreenProps = {
   promoFilmCard: PromoFilmCardProps;
-  smallFilmCards: PreviewFilm[];
 }
 
 export type MyListScreenProps = {
@@ -62,7 +62,7 @@ export type FilmDetailsProps = {
 
 export type FilmListProps = {
   films: PreviewFilm[];
-  genre: string;
+  filmCount?: number;
 }
 
 export type FilmOverviewProps = {
@@ -74,7 +74,7 @@ export type FilmOverviewProps = {
 }
 
 export type FilmReviewsProps = {
-  idFilm: string;
+  filmId: string;
   reviews: ReviewData[];
 }
 
@@ -101,4 +101,13 @@ export type VideoPlayerProps = {
 export type TabsProps = {
   film: Film;
   reviews: ReviewData[];
+}
+
+export type GenreListProps = {
+  genres: string[];
+}
+
+export type PrivateRouteProps = {
+  authorizationStatus: AuthorizationStatus;
+  children: JSX.Element;
 }
