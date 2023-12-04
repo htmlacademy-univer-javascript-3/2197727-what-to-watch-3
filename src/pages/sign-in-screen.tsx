@@ -1,4 +1,4 @@
-import Header from '../components/header';
+import HeaderLogo from '../components/header-logo';
 import Footer from '../components/footer';
 import { Helmet } from 'react-helmet-async';
 import { useRef, FormEvent } from 'react';
@@ -27,7 +27,10 @@ export default function SignInScreen() {
         <title>WTW. Sign in</title>
       </Helmet>
 
-      <Header/>
+      <header className="page-header user-page__head">
+        <HeaderLogo />
+        <h1 className="page-title user-page__title">Sign in</h1>
+      </header>
 
       <div className="sign-in user-page__content">
         <form

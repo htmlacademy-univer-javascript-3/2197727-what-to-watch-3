@@ -9,15 +9,16 @@ import AddReviewScreen from '../pages/add-review-screen';
 import PlayerScreen from '../pages/player-screen';
 import NotFoundScreen from '../pages/error-screen';
 import PrivateRoute from '../components/private-route';
-import { AppProps } from './props';
 import { useAppSelector } from '../index';
 import LoadingScreen from './loading-screen';
 import HistoryRouter from './history-routr';
 import browserHistory from './brower-history'
+import { getFilmsDataLoading } from '../components/film-data-selectors';
+import { getAuthorizationStatus } from '../user-process-selectors';
 
-export default function App({promoFilmCard, smallFilmCards, films}: AppProps) {
-  const isFilmsDataLoading = useAppSelector((state) => state.isFilmsDataLoading);
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+export default function App() {
+  const isFilmsDataLoading = useAppSelector(getFilmsDataLoading);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   if (isFilmsDataLoading) {
     return (
@@ -30,7 +31,7 @@ export default function App({promoFilmCard, smallFilmCards, films}: AppProps) {
         <Routes>
           <Route
             path={AppRoute.Main}
-            element={<MainScreen promoFilmCard={promoFilmCard}/>}
+            element={<MainScreen/>}
           />
           <Route
             path={AppRoute.SignIn}
@@ -40,18 +41,20 @@ export default function App({promoFilmCard, smallFilmCards, films}: AppProps) {
             path={AppRoute.MyList}
             element={
               <PrivateRoute authorizationStatus={authorizationStatus}>
-                <MyListScreen smallFilmCards={smallFilmCards}/>
+                <MyListScreen/>
               </PrivateRoute>
             }
           />
           <Route path={AppRoute.FilmData}>
             <Route index element={<NotFoundScreen/>}/>
-            <Route index element={<FilmScreen/>} />
-              <Route path='review' element={<AddReviewScreen/>} />
+            <Route path=':id'>
+              <Route index element={<FilmScreen/>}/>
+              <Route path='review' element={<AddReviewScreen/>}/>
             </Route>
+          </Route>
           <Route path={AppRoute.Player}>
             <Route index element={<NotFoundScreen/>}/>
-            <Route path=':id' element={<PlayerScreen films={films}/>}/>
+            <Route path=':id' element={<PlayerScreen/>}/>
           </Route>
           <Route
             path="*"

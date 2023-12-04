@@ -1,4 +1,4 @@
-import Header from '../components/header';
+
 import Footer from '../components/footer';
 import { Helmet } from 'react-helmet-async';
 import { Link, useNavigate } from 'react-router-dom';
@@ -6,60 +6,56 @@ import { AppRoute, AuthorizationStatus, FILM_SAME_GENRE_COUNT } from '../const';
 import Tabs from '../components/tabs';
 import useFilmById from '../components/film-by-id';
 import LoadingScreen from '../components/loading-screen';
-import { useAppSelector } from '../index';
-import { useDispatch } from 'react-redux';
+import { useAppDispatch, useAppSelector } from '../index';
 import { fetchFilmReviewsAction, fetchSimilarFilmsAction } from '../components/api-action';
-import { store } from '../store-index';
 import { useEffect } from 'react';
 import FilmList from '../components/film-list';
-import { PreviewFilm } from '../components/preview-film';
-
-type ReviewData = {
-  filmId: string;
-  id: string;
-  date: string;
-  user: string;
-  comment: string;
-  rating: number;
-}
+import { getCurrentSimilarFilms, getFilmDataLoading, getSimilarFilmsLoading } from '../components/film-data-selectors';
+import { getCurrentFilmReviews, getFilmReviewsLoading } from '../components/review-data-selectors';
+import { getAuthorizationStatus } from '../user-process-selectors';
+import HeaderLogo from '../components/header-logo';
+import UserBlock from '../components/user-block';
+import { getFavoriteFilmCount } from '../components/my-list-process-selectors';
+import ChangeFavoriteStatusButton from '../components/change-favorite-status-button';
 
 export default function FilmScreen() {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
+  const dispatch = useAppDispatch();
   const film = useFilmById();
-  const isFilmDataLoading = useAppSelector((state) => state.isFilmDataLoading);
-
-  const similarFilms = useAppSelector((state) => state.currentSimilarFilms);
-  const isSimilarFilmsDataLoading = useAppSelector((state) => state.isSimilarFilmsLoading);
-
-  const filmReviews = useAppSelector((state) => state.currentFilmReviews) as ReviewData[];
-
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isFilmDataLoading = useAppSelector(getFilmDataLoading);
+  const similarFilms = useAppSelector(getCurrentSimilarFilms);
+  const isSimilarFilmsDataLoading = useAppSelector(getSimilarFilmsLoading);
+  const filmReviews = useAppSelector(getCurrentFilmReviews);
+  const isFilmReviewsDataLoading = useAppSelector(getFilmReviewsLoading);
+  const favoriteFilmCount = useAppSelector(getFavoriteFilmCount);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
     if (film) {
-      store.dispatch(fetchSimilarFilmsAction({filmId: film.id}));
-      store.dispatch(fetchFilmReviewsAction({filmId: film.id}));
+      dispatch(fetchFilmReviewsAction({filmId: film.id}));
+      dispatch(fetchSimilarFilmsAction({filmId: film.id}));
     }
   }, [dispatch, film]);
 
   return (
-      <div>
-        {film && !isFilmDataLoading ?
-          <>
-          <Helmet>
-            <title>WTW. {film.name}</title>
-          </Helmet>
-          <section className="film-card film-card--full" style={{background: film.backgroundColor}}>
-            <div className="film-card__hero">
-              <div className="film-card__bg">
-                <img src={film.backgroundImage} alt={film.name} />
-              </div>
+    <div>
+      {film && !isFilmDataLoading ?
+        <>
+        <Helmet>
+          <title>WTW. {film.name}</title>
+        </Helmet>
+        <section className="film-card film-card--full" style={{background: film.backgroundColor}}>
+          <div className="film-card__hero">
+            <div className="film-card__bg">
+              <img src={film.backgroundImage} alt={film.name} />
+           </div>
 
           <h1 className="visually-hidden">WTW</h1>
 
-          <Header/>
+          <header className="page-header film-card__head">
+            <HeaderLogo />
+            <UserBlock />
+          </header>
 
           <div className="film-card__wrap">
             <div className="film-card__desc">
@@ -77,13 +73,12 @@ export default function FilmScreen() {
                   </svg>
                   <span>Play</span>
                 </button>
-                <button className="btn btn--list film-card__button" type="button">
-                  <svg viewBox="0 0 19 20" width="19" height="20">
-                    <use xlinkHref="#add"></use>
-                  </svg>
-                  <span>My list</span>
-                  <span className="film-card__count">9</span>
-                </button>
+                <ChangeFavoriteStatusButton
+                  filmId={film.id}
+                  isFavorite={film.isFavorite}
+                  favoriteFilmCount={favoriteFilmCount}
+                  authorizationStatus={authorizationStatus}
+                />
                 {authorizationStatus === AuthorizationStatus.Auth &&
                 <Link to={`${AppRoute.FilmData}/${film.id}/review`} className="btn film-card__button">Add review</Link>}
               </div>
@@ -94,9 +89,10 @@ export default function FilmScreen() {
         <div className="film-card__wrap film-card__translate-top">
           <div className="film-card__info">
             <div className="film-card__poster film-card__poster--big">
-              <img src={film.posterImage} alt={film.name} width="218" height="327" />
+              <img src={film.posterImage} alt={film.name} width="218" height="327"/>
             </div>
-           <Tabs film={film} reviews={filmReviews} />              </div>
+            <Tabs film={film} reviews={isFilmReviewsDataLoading ? [] : filmReviews}/>
+          </div>
         </div>
       </section>
 
@@ -104,7 +100,7 @@ export default function FilmScreen() {
         {similarFilms?.length !== 0 && !isSimilarFilmsDataLoading &&
           <section className="catalog catalog--like-this">
             <h2 className="catalog__title">More like this</h2>
-            <FilmList films={similarFilms as PreviewFilm[]} filmCount={FILM_SAME_GENRE_COUNT} />
+            <FilmList films={similarFilms} filmCount={FILM_SAME_GENRE_COUNT} />
           </section>}
         <Footer />
       </div>
