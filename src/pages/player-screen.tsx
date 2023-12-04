@@ -14,7 +14,6 @@ export default function PlayerScreen() {
   const film = useFilmById();
   const isFilmDataLoading = useAppSelector(getFilmDataLoading);
   const [isPlaying, setIsPlaying] = useState(false);
-  const [isFullScreen, setIsFullScreen] = useState(false);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const progressRef = useRef<HTMLProgressElement | null>(null);
   const togglerRef = useRef<HTMLDivElement | null>(null);
@@ -30,12 +29,7 @@ export default function PlayerScreen() {
   }
 
   function handleFullScreenClick() {
-    if (!isFullScreen) {
-      videoRef.current?.requestFullscreen({ navigationUI: 'hide' });
-    } else {
-      document.exitFullscreen();
-    }
-    setIsFullScreen(!isFullScreen);
+    videoRef.current?.requestFullscreen({ navigationUI: 'hide' });
   }
 
   function handleTimeUpdate() {
