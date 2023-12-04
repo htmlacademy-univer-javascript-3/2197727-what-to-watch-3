@@ -2,7 +2,7 @@ import { BACKEND_URL, REQUEST_TIMEOUT } from '../const';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { StatusCodes } from 'http-status-codes';
 import { toast } from 'react-toastify';
-import { getToken } from './token';
+import { dropToken, getToken } from './token';
 
 type DetailMessageType = {
   type: string;
@@ -11,11 +11,11 @@ type DetailMessageType = {
 
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
-  [StatusCodes.UNAUTHORIZED]: false,
   [StatusCodes.NOT_FOUND]: true
 };
 
 const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
+const shouldUnauthorizedError = () => StatusCodes.UNAUTHORIZED;
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -39,6 +39,9 @@ export const createAPI = (): AxiosInstance => {
       if (error.response && shouldDisplayError(error.response)) {
         const detailMessage = (error.response.data);
         toast.warn(detailMessage.message);
+      }
+      if (error.response && shouldUnauthorizedError()) {
+        dropToken();
       }
       throw error;
     }

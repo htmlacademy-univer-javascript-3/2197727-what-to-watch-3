@@ -10,6 +10,7 @@ export type PromoFilmCardProps = {
   backgroundImage: string;
   genre: string;
   released: number;
+  isFavorite: boolean;
 }
 
 export type SmallFilmCardProps = {
@@ -38,20 +39,6 @@ export type ReviewData = {
   rating: number;
 }
 
-export type AppProps = {
-  promoFilmCard: PromoFilmCardProps;
-  smallFilmCards: PreviewFilm[];
-  films: Film[];
-}
-
-export type MainScreenProps = {
-  promoFilmCard: PromoFilmCardProps;
-}
-
-export type MyListScreenProps = {
-  smallFilmCards: PreviewFilm[];
-}
-
 export type FilmDetailsProps = {
   director: string;
   starring: string[];
@@ -75,10 +62,6 @@ export type FilmOverviewProps = {
 
 export type FilmReviewsProps = {
   reviews: ReviewData[];
-}
-
-export type PlayerScreenProps = {
-  films: Film[];
 }
 
 export type VideoPlayerProps = {
@@ -114,4 +97,11 @@ export interface HistoryRouterProps {
 
 export type FormReviewProps = {
   filmId: string;
+}
+
+export type ChangeFavoriteStatusButtonProps = {
+  filmId: string;
+  isFavorite: boolean;
+  favoriteFilmCount: number;
+  authorizationStatus: AuthorizationStatus;
 }

@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
-import { ReactNode } from 'react';import { AppRoute, AuthorizationStatus } from '../const';
+import { AppRoute, AuthorizationStatus } from '../const';
 import { useAppSelector } from '../index';
 import SignOutButton from '../components/sing-out-button';
+import { getAuthorizationStatus } from '../user-process-selectors';
 
 const getUserBlock = (authorizationStatus: AuthorizationStatus) => {
   if(authorizationStatus === AuthorizationStatus.Auth) {
@@ -35,18 +36,12 @@ const getUserBlock = (authorizationStatus: AuthorizationStatus) => {
   );
 };
 
-export default function Header(): ReactNode {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+export default function UserBlock() {
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
   return (
-    <header className="page-header film-card__head">
-      <div className="logo">
-        <Link className="logo__link" to="/">
-          <span className="logo__letter logo__letter--1">W</span>
-          <span className="logo__letter logo__letter--2">T</span>
-          <span className="logo__letter logo__letter--3">W</span>
-        </Link>
-      </div>
-      {getUserBlock(authorizationStatus)}
-    </header>
+  <>
+    {getUserBlock(authorizationStatus)}
+  </>
   );
 }
