@@ -4,18 +4,18 @@ import { AppRoute } from '../const';
 import FormReview from '../components/form-review';
 import { useAppSelector } from '../index';
 import useFilmById from '../components/film-by-id';
-import LoadingScreen from '../components/loading-screen';
+import Spinner from '../components/spinner';
 import UserBlock from '../components/user-block';
 import HeaderLogo from '../components/header-logo';
-import { getFilmDataLoading } from '../components/film-data-selectors';
+import { getCurrentFilmLoading } from '../components/film-data-selectors';
 
 export default function AddReviewScreen() {
   const film = useFilmById();
-  const isFilmDataLoading = useAppSelector(getFilmDataLoading);
+  const isCurrentFilmLoading = useAppSelector(getCurrentFilmLoading);
 
   return (
     <section className="film-card film-card--full">
-      {film && !isFilmDataLoading ?
+      {film && !isCurrentFilmLoading ?
         <>
           <Helmet>
             <title>WTW. Add review {film.name}</title>
@@ -49,7 +49,7 @@ export default function AddReviewScreen() {
           </div>
         </div>
       <FormReview filmId={film.id}/>
-      </> : <LoadingScreen/>}
+      </> : <Spinner/>}
     </section>
   );
 }

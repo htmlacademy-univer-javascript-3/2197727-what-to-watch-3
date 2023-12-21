@@ -11,7 +11,7 @@ import { useEffect, useState } from 'react';
 import { getActiveGenre } from '../components/genre-process-selectors';
 import { getFilms, getPromoFilm, getPromoFilmLoading } from '../components/film-data-selectors';
 import { fetchPromoFilmAction } from '../components/api-action';
-import LoadingScreen from '../components/loading-screen';
+import Spinner from '../components/spinner';
 import PromoFilmCard from '../components/promo-film-card';
 
 export default function MainScreen() {
@@ -29,7 +29,7 @@ export default function MainScreen() {
 
   if(isPromoFilmLoading) {
     return(
-      <LoadingScreen/>
+      <Spinner/>
     );
   }
 
