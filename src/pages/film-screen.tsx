@@ -5,13 +5,13 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus, FILM_SAME_GENRE_COUNT } from '../const';
 import Tabs from '../components/tabs';
 import useFilmById from '../components/film-by-id';
-import LoadingScreen from '../components/loading-screen';
+import Spinner from '../components/spinner';
 import { useAppDispatch, useAppSelector } from '../index';
 import { fetchFilmReviewsAction, fetchSimilarFilmsAction } from '../components/api-action';
 import { useEffect } from 'react';
 import FilmList from '../components/film-list';
-import { getCurrentSimilarFilms, getFilmDataLoading, getSimilarFilmsLoading } from '../components/film-data-selectors';
-import { getCurrentFilmReviews, getFilmReviewsLoading } from '../components/review-data-selectors';
+import { getCurrentSimilarFilms, getCurrentFilmLoading, getCurrentSimilarFilmsLoading } from '../components/film-data-selectors';
+import { getCurrentFilmReviews, getCurrentFilmReviewsLoading } from '../components/review-data-selectors';
 import { getAuthorizationStatus } from '../user-process-selectors';
 import HeaderLogo from '../components/header-logo';
 import UserBlock from '../components/user-block';
@@ -22,11 +22,11 @@ export default function FilmScreen() {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const film = useFilmById();
-  const isFilmDataLoading = useAppSelector(getFilmDataLoading);
+  const isCurrentFilmLoading = useAppSelector(getCurrentFilmLoading);
   const similarFilms = useAppSelector(getCurrentSimilarFilms);
-  const isSimilarFilmsDataLoading = useAppSelector(getSimilarFilmsLoading);
+  const isSimilarFilmsDataLoading = useAppSelector(getCurrentSimilarFilmsLoading);
   const filmReviews = useAppSelector(getCurrentFilmReviews);
-  const isFilmReviewsDataLoading = useAppSelector(getFilmReviewsLoading);
+  const isFilmReviewsDataLoading = useAppSelector(getCurrentFilmReviewsLoading);
   const favoriteFilmCount = useAppSelector(getFavoriteFilmCount);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
@@ -39,7 +39,7 @@ export default function FilmScreen() {
 
   return (
     <div>
-      {film && !isFilmDataLoading ?
+      {film && !isCurrentFilmLoading ?
         <>
         <Helmet>
           <title>WTW. {film.name}</title>
@@ -104,7 +104,7 @@ export default function FilmScreen() {
           </section>}
         <Footer />
       </div>
-      </> : <LoadingScreen />}
+      </> : <Spinner/>}
     </div>
   );
 }

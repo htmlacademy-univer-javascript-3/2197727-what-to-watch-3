@@ -4,8 +4,8 @@ import FilmList from '../components/film-list';
 import HeaderLogo from '../components/header-logo';
 import UserBlock from '../components/user-block';
 import { useAppDispatch, useAppSelector } from '../index';
-import { getFavoriteFilmCount, getFavoriteFilms, getFavoriteFilmsDataLoading } from '../components/my-list-process-selectors';
-import LoadingScreen from '../components/loading-screen';
+import { getFavoriteFilmCount, getFavoriteFilms, getFavoriteFilmsLoading } from '../components/my-list-process-selectors';
+import Spinner from '../components/spinner';
 import { useEffect } from 'react';
 import { fetchFavoriteFilmsAction } from '../components/api-action';
 
@@ -13,7 +13,7 @@ export default function MyListScreen() {
   const dispatch = useAppDispatch();
   const favoriteFilmCount = useAppSelector(getFavoriteFilmCount);
   const favoriteFilms = useAppSelector(getFavoriteFilms);
-  const isFavoriteFilmsDataLoading = useAppSelector(getFavoriteFilmsDataLoading);
+  const isFavoriteFilmsDataLoading = useAppSelector(getFavoriteFilmsLoading);
 
   useEffect(() => {
     dispatch(fetchFavoriteFilmsAction());
@@ -21,7 +21,7 @@ export default function MyListScreen() {
 
   if(isFavoriteFilmsDataLoading) {
     return(
-      <LoadingScreen />
+      <Spinner/>
     );
   }
 

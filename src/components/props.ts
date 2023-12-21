@@ -31,7 +31,6 @@ export type ReviewProps = {
 }
 
 export type ReviewData = {
-  filmId: string;
   id: string;
   date: string;
   user: string;
