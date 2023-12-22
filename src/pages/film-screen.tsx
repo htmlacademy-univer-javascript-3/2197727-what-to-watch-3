@@ -15,7 +15,6 @@ import { getCurrentFilmReviews, getCurrentFilmReviewsLoading } from '../componen
 import { getAuthorizationStatus } from '../user-process-selectors';
 import HeaderLogo from '../components/header-logo';
 import UserBlock from '../components/user-block';
-import { getFavoriteFilmCount } from '../components/my-list-process-selectors';
 import ChangeFavoriteStatusButton from '../components/change-favorite-status-button';
 
 export default function FilmScreen() {
@@ -27,7 +26,6 @@ export default function FilmScreen() {
   const isSimilarFilmsDataLoading = useAppSelector(getCurrentSimilarFilmsLoading);
   const filmReviews = useAppSelector(getCurrentFilmReviews);
   const isFilmReviewsDataLoading = useAppSelector(getCurrentFilmReviewsLoading);
-  const favoriteFilmCount = useAppSelector(getFavoriteFilmCount);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   useEffect(() => {
@@ -76,7 +74,6 @@ export default function FilmScreen() {
                 <ChangeFavoriteStatusButton
                   filmId={film.id}
                   isFavorite={film.isFavorite}
-                  favoriteFilmCount={favoriteFilmCount}
                   authorizationStatus={authorizationStatus}
                 />
                 {authorizationStatus === AuthorizationStatus.Auth &&

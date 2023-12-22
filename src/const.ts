@@ -7,9 +7,16 @@ export const REQUEST_TIMEOUT = 5000;
 export const SECOND_COUNT_IN_HOUR = 3600;
 export const SECOND_COUNT_IN_MINUTE = 60;
 export const MINUTE_COUNT_IN_HOUR = 60;
+export const SHOWN_GENRE_COUNT = 10;
+export const MAX_REVIEW_TEXT_LENGTH = 400;
 export const DEFAULT_GENRE = 'All genres';
 export const BACKEND_URL = 'https://13.design.pages.academy/wtw';
 export const AUTH_TOKEN_KEY_NAME = 'wtw-token';
+
+export const SingInErrorMessage = {
+  Email: 'Please enter a valid email address',
+  Password: 'Password should contain at least one number and one letter',
+};
 
 export const getRunTime = (runTime: number) => {
   const hour = Math.floor(runTime / HOUR_MINUTES_COUNT);
@@ -58,4 +65,5 @@ export enum NameSpace {
   Film = 'FILM',
   Review = 'REVIEW',
   User = 'USER',
+  PostingReview = 'POSTING_REVIEW'
 }

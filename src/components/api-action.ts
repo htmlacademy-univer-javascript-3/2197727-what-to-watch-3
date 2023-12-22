@@ -9,9 +9,10 @@ import { APIRoute, AppRoute } from '../const';
 import { PromoFilm } from '../promo-film';
 import { FilmFavoriteStatus } from '../film-favorite-status';
 import { FavoriteFilmPostData } from '../favorite-film-post-data';
+import { clearMyList } from '../components/my-list-process';
 
 export type AuthData = {
-  login: string;
+  email: string;
   password: string;
 }
 
@@ -127,15 +128,17 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
   },
 );
 
-export const loginAction = createAsyncThunk<void, AuthData, {
+export const loginAction = createAsyncThunk<string, AuthData, {
   dispatch: AppDispatch;
   extra: AxiosInstance;
 }>(
   'user/login',
-  async ({login: email, password}, {dispatch, extra: api}) => {
-    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
+  async ({ email, password }, { dispatch, extra: api }) => {
+    const {data: { token, avatarUrl }} = await api.post<UserData>(APIRoute.Login, { email, password });
     saveToken(token);
+    dispatch(fetchFavoriteFilmsAction());
     dispatch(redirectToRoute(AppRoute.Main));
+    return avatarUrl;
   },
 );
 
@@ -144,16 +147,20 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   extra: AxiosInstance;
 }>(
   'user/logout',
-  async (_arg, {extra: api}) => {
+  async (_arg, { dispatch, extra: api }) => {
     await api.delete(APIRoute.Logout);
+    dispatch(clearMyList());
     dropToken();
   },
 );
 
-export const postReview = createAsyncThunk<
-  void,
-  ReviewAddingData,
-  { dispatch: AppDispatch; extra: AxiosInstance }
->('review/post', async ({ id: filmId, comment, rating }, { extra: api }) => {
-  await api.post<ReviewAddingData>(`${APIRoute.Comments}/${filmId}`, { comment, rating });
-});
+export const postReview = createAsyncThunk<void, ReviewAddingData,{
+  dispatch: AppDispatch;
+  extra: AxiosInstance;
+}>(
+  'review/post',
+  async ({ id: filmId, comment, rating }, { dispatch, extra: api }) => {
+    await api.post<ReviewAddingData>(`${APIRoute.Comments}/${filmId}`, { comment, rating });
+    dispatch(redirectToRoute(`${AppRoute.FilmData}/${filmId}`));
+  }
+);

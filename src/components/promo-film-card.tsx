@@ -4,13 +4,11 @@ import { AppRoute } from '../const';
 import HeaderLogo from '../components/header-logo';
 import UserBlock from '../components/user-block';
 import { useAppSelector } from '../index';
-import { getFavoriteFilmCount } from './my-list-process-selectors';
 import ChangeFavoriteStatusButton from '../components/change-favorite-status-button';
 import { getAuthorizationStatus } from '../user-process-selectors';
 
 export default function PromoFilm({id, posterImage, name, genre, released, backgroundImage, isFavorite}: PromoFilmCardProps) {
   const navigate = useNavigate();
-  const favoriteFilmCount = useAppSelector(getFavoriteFilmCount);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
   return (
@@ -50,7 +48,6 @@ export default function PromoFilm({id, posterImage, name, genre, released, backg
               <ChangeFavoriteStatusButton
                 filmId={id}
                 isFavorite={isFavorite}
-                favoriteFilmCount={favoriteFilmCount}
                 authorizationStatus={authorizationStatus}
               />
             </div>

@@ -3,7 +3,7 @@ import { render, screen } from '@testing-library/react';
 import FilmReviews from '../tab-film-reviews';
 import { ReviewData } from '../props';
 
-describe('Component: FilmReviews', () => {
+describe('FilmReviews', () => {
   it('render correctly', () => {
     const reviews = [] as ReviewData[];
     const filmReviewsId = 'film-card__reviews-col';

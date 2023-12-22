@@ -11,7 +11,7 @@ import {
   getPromoFilmLoading
 } from '../film-data-selectors';
 
-describe('MyListProcess selectors', () => {
+describe('my list process selectors', () => {
   const state = {
     [NameSpace.Film]: {
       films: makeFakePreviewFilms(),
@@ -41,7 +41,7 @@ describe('MyListProcess selectors', () => {
     });
   });
 
-  describe('currentFilm', () => {
+  describe('current film', () => {
     it('return "currentFilm" from state', () => {
       const { currentFilm } = state[NameSpace.Film];
       const result = getCurrentFilm(state);
@@ -57,7 +57,7 @@ describe('MyListProcess selectors', () => {
     });
   });
 
-  describe('promoFilm', () => {
+  describe('promo film', () => {
     it('return "promoFilm" from state', () => {
       const { promoFilm } = state[NameSpace.Film];
       const result = getPromoFilm(state);

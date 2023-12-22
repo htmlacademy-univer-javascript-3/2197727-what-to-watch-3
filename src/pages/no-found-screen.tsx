@@ -1,5 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
+import { AppRoute } from '../const';
 
 export default function NotFoundScreen() {
   return (
@@ -7,8 +8,10 @@ export default function NotFoundScreen() {
       <Helmet>
         <title>WTW. Page not found</title>
       </Helmet>
+
       <h1>404. Page not found</h1>
-      <Link to="/">Вернуться на главную</Link>
+      
+      <Link to={AppRoute.Main}>Вернуться на главную</Link>
     </div>
   );
 }

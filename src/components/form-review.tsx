@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
-import { RATING_STAR_COUNT } from '../const';
-import { useAppDispatch } from '../index';
+import { RATING_STAR_COUNT, MAX_REVIEW_TEXT_LENGTH } from '../const';
+import { useAppDispatch, useAppSelector } from '../index';
 import { postReview } from '../components/api-action';
 import { FormReviewProps } from './props';
 
@@ -8,19 +8,14 @@ export default function FormReview({filmId}: FormReviewProps) {
   const dispatch = useAppDispatch();
   const [rating, setRating] = useState('');
   const [reviewText, setReviewText] = useState('');
-
   const handleRatingChange = (evt: ChangeEvent<HTMLInputElement>) => {
     setRating(evt.target.value);
   };
-
   const handleReviewChange = (evt: ChangeEvent<HTMLTextAreaElement>) => {
     setReviewText(evt.target.value);
   };
-
-  function handleFormSubmit(evt: FormEvent<HTMLFormElement>) {
+  const handleFormSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    setRating(rating);
-    setReviewText(reviewText);
     dispatch(
       postReview({
         id: filmId,
@@ -28,7 +23,7 @@ export default function FormReview({filmId}: FormReviewProps) {
         rating: Number(rating),
       })
     );
-  }
+  };
 
   return (
     <div className="add-review">
@@ -39,6 +34,7 @@ export default function FormReview({filmId}: FormReviewProps) {
               .reverse()
               .map((number) => [
                 <input
+                  data-testid="rating-star"
                   key={`input-star-${number}`}
                   className="rating__input"
                   onChange={handleRatingChange}
@@ -59,7 +55,7 @@ export default function FormReview({filmId}: FormReviewProps) {
           </div>
         </div>
 
-        <div className="add-review__text">
+        <div className="add-review__text" data-testid="add-review-text">
           <textarea
             value={reviewText}
             className="add-review__textarea"
@@ -67,6 +63,7 @@ export default function FormReview({filmId}: FormReviewProps) {
             id="review-text"
             placeholder="Review text"
             onChange={handleReviewChange}
+            maxLength={MAX_REVIEW_TEXT_LENGTH}
           >
           </textarea>
 
