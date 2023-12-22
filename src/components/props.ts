@@ -101,6 +101,5 @@ export type FormReviewProps = {
 export type ChangeFavoriteStatusButtonProps = {
   filmId: string;
   isFavorite: boolean;
-  favoriteFilmCount: number;
   authorizationStatus: AuthorizationStatus;
 }

@@ -1,14 +1,16 @@
 import { useState } from 'react';
-import { useAppDispatch } from '../index';
+import { useAppDispatch, useAppSelector } from '../index';
 import { postFilmFavoriteStatus } from '../components/api-action';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { useNavigate } from 'react-router-dom';
 import { ChangeFavoriteStatusButtonProps } from './props';
+import { getFavoriteFilmCount } from './my-list-process-selectors';
 
-export default function ChangeFavoriteStatusButton({filmId, isFavorite, favoriteFilmCount, authorizationStatus}: ChangeFavoriteStatusButtonProps) {
+export default function ChangeFavoriteStatusButton({filmId, isFavorite, authorizationStatus}: ChangeFavoriteStatusButtonProps) {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const [isCurrentFavorite, setCurrentFavorite] = useState(isFavorite);
+  const favoriteFilmCount = useAppSelector(getFavoriteFilmCount);
 
   return(
     <button
@@ -27,17 +29,17 @@ export default function ChangeFavoriteStatusButton({filmId, isFavorite, favorite
       }}
     >
       {isCurrentFavorite && authorizationStatus === AuthorizationStatus.Auth ? (
-        <svg width="18" height="14" viewBox="0 0 18 14">
+        <svg width="18" height="14" viewBox="0 0 18 14" data-testid="in-list">
           <use xlinkHref="#in-list"></use>
         </svg>
       ) : (
-        <svg viewBox="0 0 19 20" width="19" height="20">
+        <svg viewBox="0 0 19 20" width="19" height="20" data-testid="add">
           <use xlinkHref="#add"></use>
         </svg>
       )}
 
       <span>My list</span>
-      <span className="film-card__count">{authorizationStatus === AuthorizationStatus.Auth ? favoriteFilmCount : 0}</span>
+      <span className="film-card__count">{favoriteFilmCount}</span>
     </button>
   );
 }

@@ -8,7 +8,7 @@ import {
 } from '../api-action';
 import { filmData } from '../film-data';
 
-describe('FilmData slice', () => {
+describe('Film data slice', () => {
   const initialState: FilmData = {
     films: [],
     isFilmsLoading: false,
