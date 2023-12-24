@@ -2,9 +2,9 @@ import { render, screen } from '@testing-library/react';
 import { withHistory } from '../../utils/mock-component';
 import NotFoundScreen from '../../pages/no-found-screen';
 
-describe('NotFoundScreen', () => {
-  it('render correctly', () => {
-    const preparedComponent = withHistory(<NotFoundScreen />);
+describe('Not found screen', () => {
+  it('render correct', () => {
+    const preparedComponent = withHistory(<NotFoundScreen/>);
 
     render(preparedComponent);
 

@@ -1,5 +1,6 @@
 import { Route, Routes } from 'react-router-dom';
-import { AppRoute } from '../const';
+import { useEffect } from 'react';
+import { AppRoute, AuthorizationStatus } from '../const';
 import { HelmetProvider } from 'react-helmet-async';
 import MainScreen from '../pages/main-screen';
 import SignInScreen from '../pages/sign-in-screen';
@@ -7,16 +8,24 @@ import MyListScreen from '../pages/my-list-screen';
 import FilmScreen from '../pages/film-screen';
 import AddReviewScreen from '../pages/add-review-screen';
 import PlayerScreen from '../pages/player-screen';
-import NotFoundScreen from '../pages/error-screen';
+import NotFoundScreen from '../pages/no-found-screen';
 import PrivateRoute from '../components/private-route';
-import { useAppSelector } from '../index';
+import { useAppSelector, useAppDispatch } from '../index';
 import Spinner from './spinner';
 import { getFilmsLoading } from '../components/film-data-selectors';
 import { getAuthorizationStatus } from '../user-process-selectors';
+import { fetchFavoriteFilmsAction } from './api-action';
 
 export default function App() {
   const isFilmsLoading = useAppSelector(getFilmsLoading);
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if(authorizationStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavoriteFilmsAction());
+    }
+  }, [authorizationStatus, dispatch]);
 
   if (isFilmsLoading) {
     return (

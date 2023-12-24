@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAppDispatch } from '../index';
 import { AppRoute } from '../const';
-import { logoutAction } from '../components/api-action';
+import { logoutAction } from './api-action';
 
 export default function SignOutButton() {
   const dispatch = useAppDispatch();

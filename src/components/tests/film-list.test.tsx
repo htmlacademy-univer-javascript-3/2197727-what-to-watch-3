@@ -3,7 +3,7 @@ import { withHistory } from '../../utils/mock-component';
 import FilmList from '../film-list';
 import { makeFakePreviewFilms } from '../../utils/mocks';
 
-describe('FilmList', () => {
+describe('Film list', () => {
   beforeEach(() => {
     vi.useFakeTimers();
   });
@@ -12,7 +12,7 @@ describe('FilmList', () => {
     vi.restoreAllMocks();
   });
 
-  it('render correctly', () => {
+  it('render correct', () => {
     const mockPreviewFilms = makeFakePreviewFilms();
     const preparedComponent = withHistory(
       <FilmList
@@ -26,8 +26,8 @@ describe('FilmList', () => {
     expect(screen.getAllByRole('article')).toHaveLength(1);
   });
 
-  it('render correctly when films.length > shown film count', () => {
-    const mockPreviewFilms = new Array(10).fill(null).map(() => makeFakePreviewFilms()[0]);
+  it('render correctly when films.length < shown film count', () => {
+    const mockPreviewFilms = new Array(7).fill(null).map(() => makeFakePreviewFilms()[0]);
     const shownFilmCount = 8;
     const preparedComponent = withHistory(
       <FilmList

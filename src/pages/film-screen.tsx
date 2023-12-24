@@ -73,7 +73,6 @@ export default function FilmScreen() {
                 </button>
                 <ChangeFavoriteStatusButton
                   filmId={film.id}
-                  isFavorite={film.isFavorite}
                   authorizationStatus={authorizationStatus}
                 />
                 {authorizationStatus === AuthorizationStatus.Auth &&

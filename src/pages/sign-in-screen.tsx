@@ -1,11 +1,13 @@
+import cn from 'classnames';
 import HeaderLogo from '../components/header-logo';
 import Footer from '../components/footer';
 import { Helmet } from 'react-helmet-async';
 import { useRef, FormEvent, useState } from 'react';
-import { useAppDispatch } from '../index';
+import { useAppDispatch, useAppSelector } from '../index';
 import { loginAction } from '../components/api-action';
-import cn from 'classnames';
-import { SingInErrorMessage } from '../const';
+import { SingInErrorMessage, AppRoute, AuthorizationStatus } from '../const';
+import { getAuthorizationStatus } from '../user-process-selectors';
+import { redirectToRoute } from '../action';
 
 export default function SignInScreen() {
   const emailRef = useRef<HTMLInputElement | null>(null);
@@ -17,11 +19,19 @@ export default function SignInScreen() {
   const containsAnyLetters = (password: string) => /[a-z]+/i.test(password);
   const containsAnyNumbers = (password: string) => /[0-9]+/i.test(password);
   const isValidEmail = (email: string) => /^[\w-\\.]+@+[\w-]+\.[a-z]{2,4}$/i.test(email);
+  const authorizationStatus = useAppSelector(getAuthorizationStatus);
+
+  if(authorizationStatus === AuthorizationStatus.Auth) {
+    dispatch(redirectToRoute(AppRoute.Main));
+  }
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
 
     if (emailRef.current && passwordRef.current) {
+      setIsErrorEmail(false);
+      setIsErrorPassword(false);
+      
       if(!isValidEmail(emailRef.current.value)) {
         setError(SingInErrorMessage.Email);
         setIsErrorEmail(true);

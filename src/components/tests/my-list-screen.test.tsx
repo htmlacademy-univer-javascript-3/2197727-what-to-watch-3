@@ -3,8 +3,8 @@ import { withStore, withHistory } from '../../utils/mock-component';
 import { makeFakeStore } from '../../utils/mocks';
 import MyListScreen from '../../pages/my-list-screen';
 
-describe('MyListScreen', () => {
-  it('render correctly', () => {
+describe('My list screen', () => {
+  it('render correct', () => {
     const { withStoreComponent } = withStore(withHistory(<MyListScreen />), makeFakeStore());
 
     render(withStoreComponent);

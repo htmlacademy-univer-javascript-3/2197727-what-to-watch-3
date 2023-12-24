@@ -7,7 +7,7 @@ import { useAppSelector } from '../index';
 import ChangeFavoriteStatusButton from '../components/change-favorite-status-button';
 import { getAuthorizationStatus } from '../user-process-selectors';
 
-export default function PromoFilm({id, posterImage, name, genre, released, backgroundImage, isFavorite}: PromoFilmCardProps) {
+export default function PromoFilmCard({id, posterImage, name, genre, released, backgroundImage}: PromoFilmCardProps) {
   const navigate = useNavigate();
   const authorizationStatus = useAppSelector(getAuthorizationStatus);
 
@@ -47,7 +47,6 @@ export default function PromoFilm({id, posterImage, name, genre, released, backg
 
               <ChangeFavoriteStatusButton
                 filmId={id}
-                isFavorite={isFavorite}
                 authorizationStatus={authorizationStatus}
               />
             </div>

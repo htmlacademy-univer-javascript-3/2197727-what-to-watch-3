@@ -2,7 +2,7 @@ import { NameSpace } from '../../const';
 import { makeFakeReview } from '../../utils/mocks';
 import { getCurrentFilmReviews, getCurrentFilmReviewsLoading } from '../review-data-selectors';
 
-describe('ReviewData selectors', () => {
+describe('Review data selectors', () => {
   const state = {
     [NameSpace.Review]: {
       currentFilmReviews: [makeFakeReview()],

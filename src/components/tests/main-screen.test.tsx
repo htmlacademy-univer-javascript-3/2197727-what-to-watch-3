@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import MainScreen from '../../pages/main-screen';
 import { withStore, withHistory } from '../../utils/mock-component';
 import { makeFakeStore } from '../../utils/mocks';
+import MainScreen from '../../pages/main-screen';
 
-describe('MainScreen', () => {
-  it('render correctly', () => {
+describe('Main screen', () => {
+  it('render correct', () => {
     const { withStoreComponent } = withStore(
       withHistory(<MainScreen/>),
       makeFakeStore()

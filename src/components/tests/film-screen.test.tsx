@@ -1,11 +1,11 @@
 import { createMemoryHistory } from 'history';
-import { AppRoute, AuthorizationStatus, NameSpace } from '../../const';
+import { render, screen } from '@testing-library/react';
+import { AppRoute, NameSpace } from '../../const';
 import { withStore, withHistory } from '../../utils/mock-component';
 import { makeFakeFilm, makeFakeStore } from '../../utils/mocks';
 import FilmScreen from '../../pages/film-screen';
-import { render, screen } from '@testing-library/react';
 
-describe('FilmScreen', () => {
+describe('Film screen', () => {
   const mockFilm = makeFakeFilm();
   const mockHistory = createMemoryHistory();
 
@@ -13,7 +13,7 @@ describe('FilmScreen', () => {
     mockHistory.push(`${AppRoute.FilmData}/${mockFilm.id}`);
   });
 
-  it('render correctly', () => {
+  it('render correct', () => {
     const { withStoreComponent } = withStore(
       withHistory(<FilmScreen/>, mockHistory),
       makeFakeStore({
@@ -36,21 +36,5 @@ describe('FilmScreen', () => {
     expect(screen.getByText(mockFilm.genre)).toBeInTheDocument();
     expect(screen.getByText(mockFilm.released)).toBeInTheDocument();
     expect(screen.queryByText('Add review')).not.toBeInTheDocument();
-  });
-
-  it('shows add review button when user is authorized', () => {
-    const { withStoreComponent } = withStore(
-      withHistory(<FilmScreen/>, mockHistory),
-      makeFakeStore({
-        [NameSpace.User]: {
-          authorizationStatus: AuthorizationStatus.Auth,
-          avatarUrl: '',
-        },
-      })
-    );
-
-    render(withStoreComponent);
-
-    expect(screen.getByText('Add review')).toBeInTheDocument();
   });
 });

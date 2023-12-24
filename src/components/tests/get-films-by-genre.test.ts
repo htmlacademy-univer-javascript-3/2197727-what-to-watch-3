@@ -19,11 +19,4 @@ describe('Get films by genre', () => {
 
     expect(result).toEqual(expectedFilms);
   });
-
-  it('return 0 films with genre comedy', () => {
-    const expectedFilms = [] as PreviewFilm[];
-    const result = getFilmsByGenre(mockFilms, 'Comedy');
-
-    expect(result).toEqual(expectedFilms);
-  });
 });

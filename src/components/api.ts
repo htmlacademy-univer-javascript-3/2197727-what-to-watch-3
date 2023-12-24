@@ -1,4 +1,4 @@
-import { BACKEND_URL, REQUEST_TIMEOUT } from '../const';
+import { BACKEND_URL, REQUEST_TIMEOUT, ERROR_MESSAGE } from '../const';
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse, AxiosError } from 'axios';
 import { StatusCodes } from 'http-status-codes';
 import { toast } from 'react-toastify';
@@ -42,9 +42,9 @@ export const createAPI = (): AxiosInstance => {
       } else if (error.response && shouldUnauthorizedError(error.response)) {
         dropToken();
       } else {
-        toast.warn('Error has occurred. Please repeat again');
+        toast.warn(ERROR_MESSAGE);
       }
-      
+
       throw error;
     }
   );

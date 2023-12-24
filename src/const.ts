@@ -12,11 +12,12 @@ export const MAX_REVIEW_TEXT_LENGTH = 400;
 export const DEFAULT_GENRE = 'All genres';
 export const BACKEND_URL = 'https://13.design.pages.academy/wtw';
 export const AUTH_TOKEN_KEY_NAME = 'wtw-token';
+export const ERROR_MESSAGE = 'Error has occurred. Please repeat again';
 
-export const SingInErrorMessage = {
-  Email: 'Please enter a valid email address',
-  Password: 'Password should contain at least one number and one letter',
-};
+export enum SingInErrorMessage {
+  Email = 'Please enter a valid email address',
+  Password = 'Password should contain at least one number and one letter',
+}
 
 export const getRunTime = (runTime: number) => {
   const hour = Math.floor(runTime / HOUR_MINUTES_COUNT);
@@ -38,26 +39,20 @@ export enum AuthorizationStatus {
   Unknown = 'UNKNOWN',
 }
 
-export const FilmTab = {
-  Overview: 'OVERVIEW',
-  Details: 'DETAILS',
-  Reviews: 'REVIEWS'
-};
+export enum FilmTab {
+  Overview = 'Overview',
+  Details = 'Details',
+  Reviews = 'Reviews'
+}
 
-export const FilmTabNameInterface = {
-  [FilmTab.Overview]: 'Overview',
-  [FilmTab.Details]: 'Details',
-  [FilmTab.Reviews]: 'Reviews',
-};
-
-export const APIRoute = {
-  Films: '/films',
-  Login: '/login',
-  Logout: '/logout',
-  Comments: '/comments',
-  PromoFilm: '/promo',
-  FavoriteFilms: '/favorite'
-};
+export enum APIRoute {
+  Films = '/films',
+  Login = '/login',
+  Logout = '/logout',
+  Comments = '/comments',
+  PromoFilm = '/promo',
+  FavoriteFilms = '/favorite'
+}
 
 export enum NameSpace {
   Genre = 'GENRE',

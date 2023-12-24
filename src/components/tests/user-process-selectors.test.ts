@@ -2,7 +2,7 @@ import { AuthorizationStatus, NameSpace } from '../../const';
 import { getAuthorizationStatus, getAvatarUrl } from '../../user-process-selectors';
 import { makeFakeAvatarUrl } from '../../utils/mocks';
 
-describe('UserProcess selectors', () => {
+describe('User process selectors', () => {
   const mockAuthorizationStatus = AuthorizationStatus.Auth;
   const mockAvatarUrl = makeFakeAvatarUrl();
 

@@ -1,13 +1,13 @@
-import { withHistory } from '../../utils/mock-component';
 import { render, screen } from '@testing-library/react';
-import FilmReviews from '../tab-film-reviews';
+import { withHistory } from '../../utils/mock-component';
 import { ReviewData } from '../props';
+import FilmReviews from '../tab-film-reviews';
 
-describe('FilmReviews', () => {
-  it('render correctly', () => {
+describe('Film reviews', () => {
+  it('render correct', () => {
     const reviews = [] as ReviewData[];
     const filmReviewsId = 'film-card__reviews-col';
-    const preparedComponent = withHistory(<FilmReviews reviews={reviews} />);
+    const preparedComponent = withHistory(<FilmReviews reviews={reviews}/>);
 
     render(preparedComponent);
 
