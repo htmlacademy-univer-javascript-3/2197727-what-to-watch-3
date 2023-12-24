@@ -1,10 +1,10 @@
-import { withHistory } from '../../utils/mock-component';
 import { render, screen } from '@testing-library/react';
+import { withHistory } from '../../utils/mock-component';
 import { makeFakeFilm } from '../../utils/mocks';
 import FilmOverview from '../tab-film-overview';
 
-describe('FilmOverview', () => {
-  it('render correctly', () => {
+describe('Film overview', () => {
+  it('render correct', () => {
     const film = makeFakeFilm();
     const filmDirector = film.director;
     const filmStarring = film.starring;

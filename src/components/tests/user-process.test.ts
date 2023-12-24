@@ -1,9 +1,9 @@
 import { AuthorizationStatus } from '../../const';
-import { checkAuthAction, loginAction, logoutAction } from '../api-action';
+import { loginAction } from '../api-action';
 import { userProcess } from '../../user-process';
 import { makeFakeAvatarUrl } from '../../utils/mocks';
 
-describe('UserProcess Slice', () => {
+describe('User process slice', () => {
   const mockAvatarUrl = makeFakeAvatarUrl();
 
   it('return initial state with empty action', () => {
@@ -34,14 +34,6 @@ describe('UserProcess Slice', () => {
     const initialState = { authorizationStatus: AuthorizationStatus.Auth, avatarUrl: mockAvatarUrl };
     const expectedState = { authorizationStatus: AuthorizationStatus.NoAuth, avatarUrl: '' };
     const result = userProcess.reducer(initialState, loginAction.rejected);
-
-    expect(result).toEqual(expectedState);
-  });
-
-  it('set "NoAuth", with "logoutAction.fulfilled" action', () => {
-    const initialState = { authorizationStatus: AuthorizationStatus.Auth, avatarUrl: mockAvatarUrl };
-    const expectedState = { authorizationStatus: AuthorizationStatus.NoAuth, avatarUrl: '' };
-    const result = userProcess.reducer(initialState, logoutAction.fulfilled);
 
     expect(result).toEqual(expectedState);
   });

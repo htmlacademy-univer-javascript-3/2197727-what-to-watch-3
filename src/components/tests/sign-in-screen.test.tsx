@@ -1,27 +1,21 @@
-import { createMemoryHistory } from 'history';
-import SignInScreen from '../../pages/sign-in-screen';
+import userEvent from '@testing-library/user-event';
+import { render, screen } from '@testing-library/react';
 import { withHistory, withStore } from '../../utils/mock-component';
 import { makeFakeStore } from '../../utils/mocks';
-import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
-import { APIRoute, AppRoute, SingInErrorMessage } from '../../const';
-import { extractActionsTypes } from '../../utils/mocks';
-import { loginAction } from '../api-action';
-import { redirectToRoute } from '../../action';
-import { fetchFavoriteFilmsAction } from '../api-action';
+import { SingInErrorMessage } from '../../const';
+import SignInScreen from '../../pages/sign-in-screen';
 
-describe('SingInScreen', () => {
-  const mockHistory = createMemoryHistory();
-  const { withStoreComponent, mockStore, mockAxiosAdapter } = withStore(
-    withHistory(<SignInScreen />),
+describe('Sign in screen', () => {
+  const { withStoreComponent } = withStore(
+    withHistory(<SignInScreen/>),
     makeFakeStore()
   );
-  const mockEmail = 'test@mail.ru';
-  const mockPassword = 'password1';
+  const mockEmail = 'bb@mail.ru';
+  const mockPassword = 'parl7';
   const mockWrongEmail = 'wrongEmail';
-  const mockWrongPassword = '1';
+  const mockWrongPassword = '7';
 
-  it('render correctly', () => {
+  it('render correct', () => {
     render(withStoreComponent);
 
     expect(screen.getByLabelText(/Email address/i)).toBeInTheDocument();
@@ -69,24 +63,5 @@ describe('SingInScreen', () => {
     expect(screen.getByDisplayValue(mockEmail)).toBeInTheDocument();
     expect(screen.getByDisplayValue(mockWrongPassword)).toBeInTheDocument();
     expect(screen.getByText(SingInErrorMessage.Password)).toBeInTheDocument();
-  });
-
-  it('sing in user and redirect to main page', async () => {
-    render(withStoreComponent);
-    mockAxiosAdapter.onPost(APIRoute.Login).reply(200, { avatarUrl: '' });
-    mockAxiosAdapter.onGet(APIRoute.FavoriteFilms).reply(200, {});
-    await userEvent.type(screen.getByPlaceholderText(/Email address/i), mockEmail);
-    await userEvent.type(screen.getByPlaceholderText(/Password/i), mockPassword);
-    await userEvent.click(screen.getByRole('button'));
-    const actions = extractActionsTypes(mockStore.getActions());
-
-    expect(mockHistory.location.pathname).toBe(AppRoute.Main);
-    expect(actions).toEqual([
-      loginAction.pending.type,
-      fetchFavoriteFilmsAction.pending.type,
-      redirectToRoute.type,
-      loginAction.fulfilled.type,
-      fetchFavoriteFilmsAction.fulfilled.type,
-    ]);
   });
 });

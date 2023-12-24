@@ -1,10 +1,10 @@
 import { render, screen } from '@testing-library/react';
-import HeaderLogo from '../header-logo';
 import { withHistory } from '../../utils/mock-component';
+import HeaderLogo from '../header-logo';
 
-describe('HeaderLogo', () => {
-  it('render correctly', () => {
-    const preparedComponent = withHistory(<HeaderLogo />);
+describe('Header logo', () => {
+  it('render correct', () => {
+    const preparedComponent = withHistory(<HeaderLogo/>);
 
     render(preparedComponent);
 

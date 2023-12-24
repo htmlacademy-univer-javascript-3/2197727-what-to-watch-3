@@ -2,8 +2,8 @@ import { render, screen } from '@testing-library/react';
 import { createMemoryHistory } from 'history';
 import HistoryRouter from '../history-routr';
 
-describe('HistoryRouter', () => {
-  it('render correctly', () => {
+describe('History router', () => {
+  it('render correct', () => {
     const mockHistory = createMemoryHistory();
     const expectedText = 'expected text';
     render(

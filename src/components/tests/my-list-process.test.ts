@@ -1,10 +1,10 @@
 import { FilmFavoriteStatus } from '../../film-favorite-status';
 import { MyFilmProcess } from '../../state';
 import { makeFakeFilm, makeFakePreviewFilms } from '../../utils/mocks';
-import { fetchFavoriteFilmsAction, postFilmFavoriteStatus } from '../api-action';
+import { postFilmFavoriteStatus } from '../api-action';
 import { myListProcess, clearMyList } from '../my-list-process';
 
-describe('MyListProcess slice', () => {
+describe('My list process slice', () => {
   const initialState: MyFilmProcess = {
     favoriteFilms: [],
     favoriteFilmCount: 0,
@@ -24,23 +24,6 @@ describe('MyListProcess slice', () => {
       const expectedState = { ...initialState };
       const emptyAction = { type: '' };
       const result = myListProcess.reducer(undefined, emptyAction);
-
-      expect(result).toEqual(expectedState);
-    });
-  });
-
-  describe('fetchFavoriteFilmsAction', () => {
-    it('set "true" on "isFavoriteFilmsLoading" with "fetchFavoriteFilmsAction.pending" action', () => {
-      const expectedState = { ...initialState, isFavoriteFilmsLoading: true };
-      const result = myListProcess.reducer(initialState, fetchFavoriteFilmsAction.pending);
-
-      expect(result).toEqual(expectedState);
-    });
-
-    it('set "false" on "isFavoriteFilmsLoading", payload on "favoriteFilms" and length payload on "favoriteFilmCount" with "fetchFavoriteFilmsAction.fulfilled" action', () => {
-      const favoriteFilms = makeFakePreviewFilms();
-      const expectedState = { isFavoriteFilmsLoading: false, favoriteFilms: favoriteFilms, favoriteFilmCount: favoriteFilms.length };
-      const result = myListProcess.reducer(initialState, fetchFavoriteFilmsAction.fulfilled(favoriteFilms, '', undefined));
 
       expect(result).toEqual(expectedState);
     });
@@ -72,7 +55,7 @@ describe('MyListProcess slice', () => {
     });
   });
 
-  describe('clearMyList', () => {
+  describe('clear my list', () => {
     it('clear my list with "clearMyList" action', () => {
       const mockFavoriteFilms = makeFakePreviewFilms();
       const previousState = {

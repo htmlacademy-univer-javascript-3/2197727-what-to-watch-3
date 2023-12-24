@@ -1,7 +1,7 @@
 import { DEFAULT_GENRE } from '../../const';
 import { changeActiveGenre, genreProcess } from '../genre-process';
 
-describe('GenreProcess slice', () => {
+describe('Genre process slice', () => {
   it('return initial state with empty action', () => {
     const expectedState = { genre: 'Drama' };
     const emptyAction = { type: '' };

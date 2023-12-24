@@ -1,7 +1,7 @@
 import { DEFAULT_GENRE, NameSpace } from '../../const';
 import { getActiveGenre } from '../genre-process-selectors';
 
-describe('MyListProcess selectors', () => {
+describe('My list process selectors', () => {
   const state = {
     [NameSpace.Genre]: {
       genre: DEFAULT_GENRE,

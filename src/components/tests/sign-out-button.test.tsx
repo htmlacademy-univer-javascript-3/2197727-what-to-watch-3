@@ -1,16 +1,16 @@
+import userEvent from '@testing-library/user-event';
 import { render, screen } from '@testing-library/react';
 import { APIRoute, AuthorizationStatus, NameSpace } from '../../const';
 import { withStore, withHistory } from '../../utils/mock-component';
-import userEvent from '@testing-library/user-event';
 import { extractActionsTypes } from '../../utils/mocks';
 import { logoutAction } from '../api-action';
-import SignOutButton from '../sing-out-button';
 import { clearMyList } from '../my-list-process';
+import SignOutButton from '../sign-out-button';
 
-describe('SignOutButton', () => {
+describe('Sign out button', () => {
   it('log out when sign out is clicked', async () => {
     const { withStoreComponent, mockStore, mockAxiosAdapter } = withStore(
-      withHistory(<SignOutButton />),
+      withHistory(<SignOutButton/>),
       {
         [NameSpace.User]: {
           authorizationStatus: AuthorizationStatus.Auth,

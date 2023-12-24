@@ -1,12 +1,11 @@
+import { render, screen } from '@testing-library/react';
 import { makeFakePromoFilm, makeFakeStore } from '../../utils/mocks';
 import { withHistory, withStore } from '../../utils/mock-component';
-import { render, screen } from '@testing-library/react';
 import PromoFilmCard from '../promo-film-card';
 
-describe('PromoFilmCard', () => {
-  it('render correctly', () => {
+describe('Promo film card', () => {
+  it('render correct', () => {
     const promoFilmCard = makeFakePromoFilm();
-
     const { withStoreComponent } = withStore(
       withHistory(
         <PromoFilmCard
@@ -15,12 +14,12 @@ describe('PromoFilmCard', () => {
           name={promoFilmCard.name}
           genre={promoFilmCard.genre}
           released={promoFilmCard.released}
-          isFavorite={promoFilmCard.isFavorite}
           backgroundImage={promoFilmCard.backgroundImage}
         />
       ),
       makeFakeStore(),
     );
+    
     render(withStoreComponent);
 
     expect(screen.getByText(promoFilmCard.name)).toBeInTheDocument();

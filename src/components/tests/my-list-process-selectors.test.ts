@@ -6,7 +6,7 @@ import {
   getFavoriteFilmsLoading
 } from '../my-list-process-selectors';
 
-describe('MyListProcess selectors', () => {
+describe('My list process selectors', () => {
   const stateFavoriteFilms = makeFakePreviewFilms();
   const state = {
     [NameSpace.MyList]: {

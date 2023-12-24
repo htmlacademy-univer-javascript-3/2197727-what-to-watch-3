@@ -47,7 +47,6 @@ export default function MainScreen() {
         genre={promoFilmCard.genre}
         released={promoFilmCard.released}
         backgroundImage={promoFilmCard.backgroundImage}
-      isFavorite={promoFilmCard.isFavorite}
       />}
 
       <div className="page-content" data-testid="page-content">

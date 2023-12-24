@@ -1,11 +1,11 @@
 import { MemoryHistory, createMemoryHistory } from 'history';
-import { AppRoute, AuthorizationStatus, NameSpace } from '../../const';
 import { Route, Routes } from 'react-router-dom';
-import PrivateRoute from '../private-route';
 import { render, screen } from '@testing-library/react';
+import { AppRoute, AuthorizationStatus, NameSpace } from '../../const';
 import { withHistory, withStore } from '../../utils/mock-component';
+import PrivateRoute from '../private-route';
 
-describe('PrivateRoute', () => {
+describe('Private route', () => {
   let mockHistory: MemoryHistory;
 
   beforeAll(() => {

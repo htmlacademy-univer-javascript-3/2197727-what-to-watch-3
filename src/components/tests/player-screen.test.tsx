@@ -6,7 +6,7 @@ import { withStore, withHistory } from '../../utils/mock-component';
 import { makeFakeFilmId, makeFakeStore } from '../../utils/mocks';
 import PlayerScreen from '../../pages/player-screen';
 
-describe('PlayerScreen', () => {
+describe('Player screen', () => {
   const mockFilmId = makeFakeFilmId();
   const mockHistory = createMemoryHistory();
 
@@ -23,7 +23,7 @@ describe('PlayerScreen', () => {
 
   HTMLVideoElement.prototype.pause = vi.fn();
 
-  it('render correctly', () => {
+  it('render correct', () => {
     render(withStoreComponent);
 
     expect(screen.getByText(/Toggler/i)).toBeInTheDocument();

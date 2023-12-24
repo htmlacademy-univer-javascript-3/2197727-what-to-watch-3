@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../const';
 import { useAppSelector } from '../index';
-import SignOutButton from '../components/sing-out-button';
+import SignOutButton from './sign-out-button';
 import { getAuthorizationStatus, getAvatarUrl } from '../user-process-selectors';
 
 const getUserBlock = (authorizationStatus: AuthorizationStatus, avatarUrl: string) => {

@@ -1,10 +1,10 @@
+import { render, screen } from '@testing-library/react';
 import { makeFakePreviewFilms } from '../../utils/mocks';
 import { withHistory } from '../../utils/mock-component';
-import { render, screen } from '@testing-library/react';
 import SmallFilmCard from '../small-film-card';
 
-describe('SmallFilmCard', () => {
-  it('render correctly', () => {
+describe('Small film card', () => {
+  it('render correct', () => {
     const smallFilmCard = makeFakePreviewFilms()[0];
     const smallFilmCardImageId = 'small-film-card-image';
     const preparedComponent = withHistory(

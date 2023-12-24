@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import Footer from '../footer';
 import { withHistory } from '../../utils/mock-component';
+import Footer from '../footer';
 
 describe('Footer', () => {
-  it('render correctly', () => {
+  it('render correct', () => {
     const preparedComponent = withHistory(<Footer />);
 
     render(preparedComponent);

@@ -10,7 +10,6 @@ export type PromoFilmCardProps = {
   backgroundImage: string;
   genre: string;
   released: number;
-  isFavorite: boolean;
 }
 
 export type SmallFilmCardProps = {
@@ -100,6 +99,5 @@ export type FormReviewProps = {
 
 export type ChangeFavoriteStatusButtonProps = {
   filmId: string;
-  isFavorite: boolean;
   authorizationStatus: AuthorizationStatus;
 }

@@ -1,18 +1,15 @@
 import { render, screen } from '@testing-library/react';
-import Tabs from '../tabs';
 import userEvent from '@testing-library/user-event';
 import { makeFakeFilm, makeFakeReview } from '../../utils/mocks';
 import { withHistory } from '../../utils/mock-component';
+import Tabs from '../tabs';
 
 describe('Tabs', () => {
   const mockFilm = makeFakeFilm();
   const mockReviews = [makeFakeReview()];
+  const preparedComponent = withHistory(<Tabs film={mockFilm} reviews={mockReviews}/>);
 
-  const preparedComponent = withHistory(
-    <Tabs film={mockFilm} reviews={mockReviews} />
-  );
-
-  it('render correctly', () => {
+  it('render correct', () => {
     render(preparedComponent);
 
     expect(screen.getByRole('navigation')).toBeInTheDocument();

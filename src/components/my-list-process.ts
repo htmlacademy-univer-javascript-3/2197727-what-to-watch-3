@@ -33,8 +33,11 @@ export const myListProcess = createSlice({
         if(film.isFavorite) {
           state.favoriteFilmCount++;
         } else {
-          state.favoriteFilmCount--;
+          state.favoriteFilms = state.favoriteFilms.filter(
+            (film) => film.id !== film.id
+          );
         }
+        state.favoriteFilmCount = state.favoriteFilms.length;
       });
   }
 });
